@@ -24,10 +24,10 @@ def z():
         ptime = {path: now}
         count = .0
         for l in lines:
-            l = l.split('|')
+            l = l.strip().split('|')
             if l[0] == path:
                 rank[l[0]] = float(l[1]) + 1
-                ptime[l[0]] = str(now) + '\n'
+                ptime[l[0]] = str(now)
             else:
                 rank[l[0]] = float(l[1])
                 ptime[l[0]] = l[2]
@@ -39,7 +39,7 @@ def z():
         tempfile = datafile + '.' + str(random.randint(10000, 99999))
         with open(tempfile, 'w') as f:
             for x in rank.iterkeys():
-                f.write('%s|%s|%s' % (x, round(factor * rank[x], 5), ptime[x]))
+                f.write('%s|%s|%s\n' % (x, round(factor * rank[x], 5), ptime[x]))
 
         try:
             os.rename(tempfile, datafile)
