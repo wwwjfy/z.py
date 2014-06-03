@@ -11,9 +11,10 @@ def z():
     if os.path.isfile(datafile) and os.stat(datafile).st_uid != os.getuid():
         return
 
-    path = os.path.expandvars(os.path.expanduser(sys.argv[2]))
-    if path == os.getenv('HOME'):
-        return
+    if sys.argv[1] == '--add':
+        path = os.path.expandvars(os.path.expanduser(sys.argv[2]))
+        if path == os.getenv('HOME'):
+            return
 
     lines = filter(lambda l:os.path.isdir(l.split('|', 1)[0]),
                    open(datafile).readlines())
