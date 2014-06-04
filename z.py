@@ -39,7 +39,7 @@ def z():
             factor = 1.0
         tempfile = datafile + '.' + str(random.randint(10000, 99999))
         with open(tempfile, 'w') as f:
-            for x in rank.iterkeys():
+            for x in rank.keys():
                 f.write('%s|%s|%s\n' % (x, round(factor * rank[x], 5), ptime[x]))
 
         try:
