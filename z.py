@@ -10,6 +10,8 @@ def z():
         sys.exit(0)
     datafile = os.getenv('_Z_DATA', os.getenv('HOME')) + '/.z'
 
+    if not os.path.exists(datafile):
+        open(datafile, 'w')
     if os.path.isfile(datafile) and os.stat(datafile).st_uid != os.getuid():
         return
 
