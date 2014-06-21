@@ -7,7 +7,6 @@ import time
 
 def z():
     if len(sys.argv) < 2:
-        sys.stderr.write(usage.format(sys.argv[0]))
         sys.exit(0)
     datafile = os.getenv('_Z_DATA', os.getenv('HOME')) + '/.z'
 
