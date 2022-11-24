@@ -24,7 +24,7 @@ def z():
                    open(datafile).readlines())
 
     if sys.argv[1] == '--add':
-        now = int(time.time())
+        now = str(int(time.time()))
         rank = {path: 1}
         ptime = {path: now}
         count = .0
@@ -32,7 +32,7 @@ def z():
             l = l.strip().split('|')
             if l[0] == path:
                 rank[l[0]] = float(l[1]) + 1
-                ptime[l[0]] = str(now)
+                ptime[l[0]] = now
             else:
                 rank[l[0]] = float(l[1])
                 ptime[l[0]] = l[2]
@@ -60,6 +60,8 @@ def z():
         ihi_rank = -1
         best_match = None
         ibest_match = None
+        last = sys.argv[-1]
+
         for l in lines:
             l = l.split('|')
             dx = now - int(l[2])
@@ -71,12 +73,14 @@ def z():
                 rank = float(l[1]) / 2
             else:
                 rank = float(l[1]) / 4
+            if last.lower() == l[0].split('/')[-1].lower():
+                rank += 10000
             matches[l[0]] = rank
             imatches[l[0]] = rank
             for x in sys.argv[1:]:
-                if not re.search(x, l[0]):
+                if x not in l[0]:
                     matches.pop(l[0], None)
-                if not re.search(x, l[0], re.I):
+                if x.lower() not in l[0].lower():
                     imatches.pop(l[0], None)
             if matches.get(l[0], None) and matches[l[0]] > hi_rank:
                 best_match = l[0]
